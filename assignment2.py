@@ -66,7 +66,7 @@ def stop_word_list():
     return new_list
 #print(stop_word_list())
 
-def most_freq_word_wiki(name):
+def freq_word_wiki(name):
     """This function takes 1 paramter: name, a string, the name to research in wikipedia
     The function will return a new dictionary, key is frequency, value is list fo words appear in this frequency
     This function also exclude all the words from stop word list"""
@@ -74,8 +74,16 @@ def most_freq_word_wiki(name):
     new_d = dict()
     stop_list= stop_word_list()
     for word in old_d:
-        if word not in stop_list:
-            print(word)
-most_freq_word_wiki('Alice in Wonderland')
+        value = old_d[word]
+        if word in stop_list:
+            continue
+        else:
+            if value in new_d:
+                new_d[value].append(word)
+            if value not in new_d:
+                new_d[value] = list()
+                new_d[value].append(word)
+    return new_d
+# freq_word_wiki('Alice in Wonderland')
 
 # Analysis 2-2. 
