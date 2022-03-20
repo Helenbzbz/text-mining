@@ -86,4 +86,19 @@ def freq_word_wiki(name):
     return new_d
 # freq_word_wiki('Alice in Wonderland')
 
+def top_word(a,n):
+    """This function takes 2 paramter: a, the name to search in wikipedia, a string;
+    n, the top n frequent words to print
+    It print the top 10 frequent word in wiki content and their term frequency"""
+    d = freq_word_wiki(a)
+    count = 0
+    order = list(d.keys()).copy()
+    order.sort(reverse=True)
+    for i in order:
+        while count < n:
+            for word_list in d[i]:
+                print(f'{i},{word_list}')
+            count += len(d[i])
+top_word('Alice in Wonderland',10)
+
 # Analysis 2-2. 
