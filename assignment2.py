@@ -201,6 +201,7 @@ def word_different(a, b, n):
 # The above example examine how bad review are different from good
 
 # Function 2-3 Natural Lanaguage Processing
+from tkinter import W
 from nltk.sentiment.vader import SentimentIntensityAnalyzer
 import nltk
 nltk.downloader.download('vader_lexicon')
@@ -245,51 +246,59 @@ def Scatter_plot_review(x,x_name,y,y_name,colo):
 
 def Scatter_plot_movies(a):
     """This function takes 1 paramter, a list of 5 strings, 5 movie names.
-    The function will create a plot to map the 5 movies' good reviews' neutral scores and compound scores,
+    The function will create a plot to map the 5 movies' good reviews' neutral scores and positive scores,
     The same step will be repeated for bad reviews and wikipedia content
     The purpose of this plot is to explore whether the good reviews, bad reviews, and wiki page are positive/negative/neutral across movies"""
-    wiki_com = list()
+    import matplotlib.pyplot as plt
+    wiki_pos = list()
     wiki_neu = list()
-    good_com = list()
+    good_pos = list()
     good_neu = list()
-    bad_com = list()
+    bad_pos = list()
     bad_neu = list()
     for movie in a:
-        wiki = wiki_data(movie)
-        good = imdb_review_string(movie)[0]
-        bad = imdb_review_string(movie)[1]
-        wiki_com.append(NLP_score(wiki)['compound'])
-        good_com.append(NLP_score(good)['compound'])
-        bad_com.append(NLP_score(bad)['compound'])
+        wiki = (wiki_data(movie))
+        good = (imdb_review_string(movie)[0])
+        bad = (imdb_review_string(movie)[1])
+        wiki_pos.append(NLP_score(wiki)['pos'])
+        good_pos.append(NLP_score(good)['pos'])
+        bad_pos.append(NLP_score(bad)['pos'])
         wiki_neu.append(NLP_score(wiki)['neu'])
         good_neu.append(NLP_score(wiki)['neu'])
         bad_neu.append(NLP_score(wiki)['neu'])
-    Scatter_plot_review(wiki_com,'compound score',wiki_neu,'neutral score','green')
-Scatter_plot_movies(['The Batman','Alice in Wonderland','The Adam Project'])
+    plt.scatter(wiki_pos, wiki_neu, color = 'black')
+    plt.scatter(good_pos,good_neu,color = 'green')
+    plt.scatter(bad_pos,bad_neu,color = 'red')
+    plt.xlabel('positive score')
+    plt.ylabel('neutral score')
+    plt.show()
+# Scatter_plot_movies(['The Batman','Alice in Wonderland','The Adam Project'])
 
 # Section 3. Example Analysis
 def main():
     """These parts of the function provides insights into a specified movie"""
     ### Part 1. This part of the analysis provides you basic information about the movie
     m_name = input('Please enter the name of the movie:')
-    # imdb_info(m_name)
-    # print(f'\nThe imdb_rating for this movie is:{imdb_rating(m_name)}.')
-    # print(f'\nIts wikipedia page identify the following 10 keywords:')
-    # top_word_print(wiki_data(m_name),10)
+    imdb_info(m_name)
+    print(f'\nThe imdb_rating for this movie is:{imdb_rating(m_name)}.')
+    print(f'\nIts wikipedia page identify the following 10 keywords:')
+    top_word_print(wiki_data(m_name),10)
+    
     ### Part 2. This part of the analysis provides you insights behind its ratings
-    # print(f'\nIts good reviews all mentions the following unique words:')
-    # word_different(imdb_review_string(m_name)[0], imdb_review_string(m_name)[1], 20)
-    # print(f'\nIts bad reviews all mentions the following unique words:')
-    # word_different(imdb_review_string(m_name)[1], imdb_review_string(m_name)[0], 20)
+    print(f'\nIts good reviews all mentions the following unique words:')
+    word_different(imdb_review_string(m_name)[0], imdb_review_string(m_name)[1], 20)
+    print(f'\nIts bad reviews all mentions the following unique words:')
+    word_different(imdb_review_string(m_name)[1], imdb_review_string(m_name)[0], 20)
 
     """This part of the function explores the relationship b/w rating and its comment"""
-    print(f'\n We use the above movie to examine such relationship and draw the graph below.')
+    print(f'\n We use the movie <{m_name}> to examine if there is an association relationship between rating and compound score.')
     Scatter_plot_review(obtain_compound_movie(m_name),'compound score',obtain_rating(m_name),'rating','black')
-    movie_list = ['The Batman','Alice in Wonderland','Fresh','Deep Water','The Adam Project']
-    print(f'\n We then uses the following 5 movies to examine if the relative rating score on IMDb matches the attitude reflected in its comment:{movie_list}')
-    a = input('Enter anything to continue:')
-    matplotlib.pyplot.close()
+    
+    raw_input = input("Please Enter anything to continue: ")
+    movie_list = ['The Batman','Alice in Wonderland','Charlie and the Chocolate Factory','Uncharted','The Adam Project']
+    print(f'\n We then uses the following 5 movies to examine if the relationship between compound score and neutural score are different for good reviews, bad reviews, and wikipedia for {movie_list}')
+    Scatter_plot_movies(movie_list)
+    print('Red represents bad review, green represents good review, black represents wiki content')
 
-
-# if __name__ == "__main__":
-#     main()
+if __name__ == "__main__":
+    main()
