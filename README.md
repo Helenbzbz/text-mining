@@ -42,6 +42,6 @@ Its bad reviews all mentions the following unique words: Selina Colson Penguin m
 
 * ⤴️ An interesting finding is that wiki-content has much lower positive score comparing to the bad review.
 
-## 4. Reflection ##
+## 🔇 Reflection ##
 
 Most of my idea works out while this code can definitely be more concise. Besides, the second graph takes 30 more seconds to process and I'm looking for a way to improve the performance. Through this project, I returned back to previous functions very frequently to fix the function thus its output data type can fit into the new functions. For my next project, I should make a sketch first, espcially mark the input and output type clearly. 
