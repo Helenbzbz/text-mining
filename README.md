@@ -44,4 +44,4 @@ Its bad reviews all mentions the following unique words: Selina Colson Penguin m
 
 ## 4. Reflection ##
 
-I think most of my idea works out (a working code is a good code). While this code can definitely be more concise but I just don't know where I can make the code more efficient. Besides, the second graph takes 30 more seconds to process and I'm looking for a way to shorten the time. For next project, I should make a sketch first, espcially make the input and output type clear. During this HW, I return back to previous functions very frequently to fix the function thus its output data type can fit into the new functions.
+Most of my idea works out while this code can definitely be more concise. Besides, the second graph takes 30 more seconds to process and I'm looking for a way to improve the performance. Through this project, I returned back to previous functions very frequently to fix the function thus its output data type can fit into the new functions. For my next project, I should make a sketch first, espcially mark the input and output type clearly. 
